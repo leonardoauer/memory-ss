@@ -24,4 +24,9 @@ public class MemoryServiceImpl extends CrudService<Memory> implements MemoryServ
 	public Memory findOne(Long id) {
 		return memoryRepository.findById(id).get();
 	}
+
+	@Override
+	public Memory save(Memory memory) {
+		return memoryRepository.save(memory);
+	}
 }

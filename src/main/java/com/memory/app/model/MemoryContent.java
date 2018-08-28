@@ -25,4 +25,12 @@ public class MemoryContent extends Bean {
 	public void setText(String text) {
 		this.text = text;
 	}
+
+	public Memory getMemory() {
+		return memory;
+	}
+
+	public void setMemory(Memory memory) {
+		this.memory = memory;
+	}
 }

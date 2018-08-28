@@ -1,6 +1,14 @@
 package com.memory.app.model;
 
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
+
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.OneToOne;
 
 import com.memory.core.model.Bean;
@@ -10,12 +18,15 @@ public class Memory extends Bean {
 
 	/** serialVersionUID */
 	private static final long serialVersionUID = 1L;
-	
-	private String tag;
+
 	private String title;
 	private Boolean active;
-	
-	@OneToOne(mappedBy = "memory")
+
+	@ManyToMany
+	@JoinTable(name = "memory_tag", joinColumns = @JoinColumn(name = "memory_id"), inverseJoinColumns = @JoinColumn(name = "tag_id"))
+	private Set<Tag> tags;
+
+	@OneToOne(mappedBy = "memory", cascade = CascadeType.ALL)
 	private MemoryContent content;
 
 	public String getTitle() {
@@ -34,19 +45,23 @@ public class Memory extends Bean {
 		this.active = active;
 	}
 
-	public String getTag() {
-		return tag;
-	}
-
-	public void setTag(String tag) {
-		this.tag = tag;
-	}
-
 	public MemoryContent getContent() {
 		return content;
 	}
 
 	public void setContent(MemoryContent content) {
 		this.content = content;
+	}
+
+	public Set<Tag> getTags() {
+		return tags;
+	}
+
+	public void setTags(Set<Tag> tags) {
+		this.tags = tags;
+	}
+	
+	public void setTags(List<Tag> tags) {
+		this.tags = new HashSet<>(tags);
 	}
 }
